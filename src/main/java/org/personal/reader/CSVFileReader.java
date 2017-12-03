@@ -13,6 +13,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * Main class for the processing of CSV files with a multi-thread approach.
+ * The file is read on a single thread, since reading a file multi-threaded makes no sense,
+ * but the handling of each column and conversion to a domain model instance is done on a separate
+ * thread from a thread pool (since these operations are more CPU bound).
+ *
  * @author Gabriel Padurean
  */
 public abstract class CSVFileReader<T> {
@@ -31,6 +36,10 @@ public abstract class CSVFileReader<T> {
         this.executorService = Executors.newFixedThreadPool(numberOfThreads);
     }
 
+    /**
+     * Method for starting the processing of the csv file.
+     * This method blocks until all threads used for processing the csv file are done.
+     */
     public void process() {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(new File(fileName)));
@@ -134,7 +143,20 @@ public abstract class CSVFileReader<T> {
         }
     }
 
+    /**
+     * Should be implemented with actions for what to do in case of success.
+     * Since this is executed on a thread from a thread pool configured
+     * for the file reader it can contain also code for heavy-processing,
+     * but the file reader should be initialized accordingly.
+     *
+     * @param t Instance representing a line from the file.
+     */
     public abstract void onSuccess(T t);
 
+    /**
+     * Should be implemented with actions for what to do in case of failure.
+     *
+     * @param e Exception that occurred while processing a line from the file.
+     */
     public abstract void onFail(Exception e);
 }

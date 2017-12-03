@@ -9,6 +9,8 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 /**
+ * Used to demonstrate the usage of the {@link CSVFileReader} class.
+ *
  * @author Gabriel Padurean
  */
 @Component
@@ -23,7 +25,9 @@ public class AccountReaderSample {
 
 
     /**
-     * Sample method on how to use the {@link CSVFileReader} class.
+     * Method runs when the application has started and creates a {@link CSVFileReader} instance
+     * that allows to read a csv file and automatically create {@link Account} instances.
+     * The column names from the csv file should map to the field names from the @link Account} class.
      */
     @EventListener(ApplicationReadyEvent.class)
     public void run() {
@@ -39,6 +43,9 @@ public class AccountReaderSample {
             }
         };
 
+        /**
+         * Once the instance is created we can start the processing.
+         */
         csvFileReader.process();
     }
 }

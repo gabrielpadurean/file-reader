@@ -1,6 +1,8 @@
 package org.personal.sample;
 
 /**
+ * Domain model class encapsulating the concept of an Account.
+ *
  * @author Gabriel Padurean
  */
 public class Account {
