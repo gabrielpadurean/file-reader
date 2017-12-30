@@ -2,7 +2,7 @@
 File Reader
 
 # Description
-Project containing the main class for the processing of CSV files with a multi-thread approach and a sample usage.  
+Project containing the main class for the processing of CSV files using a multi-thread approach and a sample usage.  
 The file is read on a single thread, since reading a file multi-threaded makes no sense, but the handling of each column  
 and conversion to a domain model instance is done on a separate thread from a thread pool (since these operations are CPU bound).  
 
