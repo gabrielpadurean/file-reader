@@ -1,5 +1,6 @@
 package org.personal.sample;
 
+import org.personal.domain.Account;
 import org.personal.reader.CSVFileReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

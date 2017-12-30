@@ -1,4 +1,4 @@
-package org.personal.sample;
+package org.personal.domain;
 
 /**
  * Domain model class encapsulating the concept of an Account.
