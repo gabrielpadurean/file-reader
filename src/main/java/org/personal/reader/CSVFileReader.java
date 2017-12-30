@@ -13,10 +13,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Main class for the processing of CSV files with a multi-thread approach.
+ * Main class for the processing of CSV files using a multi-thread approach.
  * The file is read on a single thread, since reading a file multi-threaded makes no sense,
  * but the handling of each column and conversion to a domain model instance is done on a separate
- * thread from a thread pool (since these operations are more CPU bound).
+ * thread from a thread pool (since these operations are CPU bound).
  *
  * @author Gabriel Padurean
  */
@@ -74,15 +74,18 @@ public abstract class CSVFileReader<T> {
         /**
          * Process line header columns.
          */
-        String[] elements = line.split(",");
+        String[] columns = line.split(",");
         Map<String, Integer> columnPosition = new HashMap<>();
-        for (int i = 0; i < elements.length; i++) {
-            String elem = elements[i];
+        for (int i = 0; i < columns.length; i++) {
+            String column = columns[i];
 
-            if (elem.startsWith(UTF_8_BOM)) {
-                columnPosition.put(elem.substring(1), i);
+            /**
+             * Skip first marker character if exists.
+             */
+            if (column.startsWith(UTF_8_BOM)) {
+                columnPosition.put(column.substring(1), i);
             } else {
-                columnPosition.put(elem, i);
+                columnPosition.put(column, i);
             }
         }
 

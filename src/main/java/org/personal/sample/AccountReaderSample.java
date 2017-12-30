@@ -26,12 +26,12 @@ public class AccountReaderSample {
 
     /**
      * Method runs when the application has started and creates a {@link CSVFileReader} instance
-     * that allows to read a csv file and automatically create {@link Account} instances.
-     * The column names from the csv file should map to the field names from the @link Account} class.
+     * that allows to read a CSV file and automatically create {@link Account} instances.
+     * The column names from the CSV file should map to the field names from the {@link Account} class.
      */
     @EventListener(ApplicationReadyEvent.class)
     public void run() {
-        CSVFileReader csvFileReader = new CSVFileReader<Account>(fileName, numberOfThreads) {
+        CSVFileReader<Account> csvFileReader = new CSVFileReader<Account>(fileName, numberOfThreads) {
             @Override
             public void onSuccess(Account account) {
                 LOG.info("Successfully read: {}", account);
